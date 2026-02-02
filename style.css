@@ -1,0 +1,232 @@
+
+/* VS CODE GLOBAL STYLES */
+:root {
+  --vscode-background: #1e1e1e;
+  --vscode-editor-background: #252526;
+  --vscode-sidebar-background: #202020;
+  --vscode-text-color: #d4d4d4;
+  --vscode-inactive-text-color: #8a8a8a;
+  --vscode-border-color: #323232;
+  --vscode-active-tab-background: #2d2d2d;
+  --vscode-tab-hover-background: #353535;
+  --vscode-tab-border-color: #323232;
+  --vscode-file-active-background: #2d2d2d;
+  --vscode-file-hover-background: #353535;
+  --vscode-scrollbartrack-background: #282828;
+  --vscode-scrollbarshadow-background: #202020;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe WPC', 'Segoe UI', 'Meiryo UI', 'HelveticaNeue', 'sans-serif';
+  background-color: var(--vscode-background);
+  color: var(--vscode-text-color);
+  overflow: hidden; /* Prevent body scrollbar */
+}
+
+a {
+  color: #4fc3f7; /* A VS Code-like link color */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* VS CODE LAYOUT */
+.vscode-container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+}
+
+.sidebar {
+  width: 250px;
+  min-width: 180px;
+  background-color: var(--vscode-sidebar-background);
+  border-right: 1px solid var(--vscode-border-color);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Enable scrolling for sidebar if content overflows */
+}
+
+.sidebar-header {
+  padding: 8px 16px;
+  font-weight: bold;
+  color: var(--vscode-inactive-text-color);
+  text-transform: uppercase;
+  font-size: 0.8em;
+  border-bottom: 1px solid var(--vscode-border-color);
+}
+
+.file-explorer {
+  padding: 8px 0;
+}
+
+.file-item {
+  padding: 6px 16px;
+  cursor: pointer;
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.file-item:hover {
+  background-color: var(--vscode-file-hover-background);
+}
+
+.file-item.active {
+  background-color: var(--vscode-file-active-background);
+  color: var(--vscode-text-color);
+  font-weight: bold;
+}
+
+.main-panel {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--vscode-editor-background);
+}
+
+.tabs-container {
+  display: flex;
+  background-color: var(--vscode-sidebar-background); /* Tabs slightly darker */
+  border-bottom: 1px solid var(--vscode-border-color);
+  overflow-x: auto; /* Allow horizontal scrolling for tabs */
+  flex-shrink: 0; /* Prevent tabs from shrinking */
+}
+
+.tab {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.85em;
+  border-right: 1px solid var(--vscode-border-color);
+  transition: background-color 0.1s ease-in-out;
+  white-space: nowrap;
+  position: relative;
+}
+
+.tab:last-child {
+  border-right: none;
+}
+
+.tab:hover {
+  background-color: var(--vscode-tab-hover-background);
+}
+
+.tab.active {
+  background-color: var(--vscode-active-tab-background);
+  color: var(--vscode-text-color);
+  font-weight: bold;
+}
+
+.editor-container {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto; /* Enable scrolling for editor content */
+  line-height: 1.6;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', 'monospace';
+  font-size: 0.9em;
+}
+
+.content-block h1,
+.content-block h2,
+.content-block h3,
+.content-block h4 {
+  color: #569cd6; /* VS Code function color */
+  margin-bottom: 0.5em;
+}
+
+.content-block h1 { font-size: 2em; }
+.content-block h2 { font-size: 1.5em; color: #ce9178; } /* VS Code class color */
+.content-block h3 { font-size: 1.2em; color: #4fc3f7; } /* VS Code string color */
+.content-block h4 { font-size: 1em; color: #cccccc; } /* Slightly lighter text */
+
+.content-block p {
+  margin-bottom: 1em;
+}
+
+.content-block ul {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+  padding-left: 25px;
+}
+
+.content-block li {
+  margin-bottom: 0.5em;
+}
+
+.content-block strong {
+    color: #808080; /* VS Code comment color */
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    min-width: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 10;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .sidebar-header {
+      border-bottom: none; /* No border when stacked */
+  }
+
+  .vscode-container {
+    flex-direction: column;
+  }
+
+  .main-panel {
+    width: 100%;
+    height: 100vh; /* Full height for main panel */
+  }
+
+  .tabs-container {
+    border-bottom: none;
+  }
+
+  .editor-container {
+    padding: 15px;
+    height: calc(100vh - 40px); /* Adjust height to fit below tabs */
+  }
+}
+
+/* SCROLLBAR STYLES (Optional, for finer control if needed) */
+/*
+.sidebar::-webkit-scrollbar,
+.editor-container::-webkit-scrollbar,
+.tabs-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track,
+.editor-container::-webkit-scrollbar-track,
+.tabs-container::-webkit-scrollbar-track {
+  background: var(--vscode-scrollbartrack-background);
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.editor-container::-webkit-scrollbar-thumb,
+.tabs-container::-webkit-scrollbar-thumb {
+  background: var(--vscode-inactive-text-color);
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover,
+.editor-container::-webkit-scrollbar-thumb:hover,
+.tabs-container::-webkit-scrollbar-thumb:hover {
+  background: var(--vscode-text-color);
+}
+*/
