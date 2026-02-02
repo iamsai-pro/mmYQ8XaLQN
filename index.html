@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VS Code Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="vscode-container">
+    <div class="sidebar">
+      <div class="sidebar-header">EXPLORER</div>
+      <div class="file-explorer">
+        <div class="file-item active" data-file="about.md">about.md</div>
+        <div class="file-item" data-file="skills.json">skills.json</div>
+        <div class="file-item" data-file="projects.js">projects.js</div>
+        <div class="file-item" data-file="experience.txt">experience.txt</div>
+        <div class="file-item" data-file="education.md">education.md</div>
+        <div class="file-item" data-file="certifications.txt">certifications.txt</div>
+        <div class="file-item" data-file="contact.md">contact.md</div>
+      </div>
+    </div>
+    <div class="main-panel">
+      <div class="tabs-container">
+        <div class="tab active" data-file="about.md">about.md</div>
+        <div class="tab" data-file="skills.json">skills.json</div>
+        <div class="tab" data-file="projects.js">projects.js</div>
+        <div class="tab" data-file="experience.txt">experience.txt</div>
+        <div class="tab" data-file="education.md">education.md</div>
+        <div class="tab" data-file="certifications.txt">certifications.txt</div>
+        <div class="tab" data-file="contact.md">contact.md</div>
+      </div>
+      <div class="editor-container">
+        <div id="editor-content">
+          <!-- Content will be loaded here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fileItems = document.querySelectorAll('.file-item');
+    const tabs = document.querySelectorAll('.tab');
+    const editorContent = document.getElementById('editor-content');
+
+    const contentMap = {
+      "about.md": `
+        <div class="content-block">
+          <h1>AKHIL VULCHI</h1>
+          <h2>Java Full Stack Developer</h2>
+          <p>+91 81257 25307 | vulchiakhil@gmail.com | <a href="https://www.linkedin.com/in/akhil-vulchi-a95587263/" target="_blank">LinkedIn</a> | <a href="https://github.com/AkhilVulchi" target="_blank">GitHub</a> | <a href="https://leetcode.com/Vulchi_Akhil/" target="_blank">Leetcode</a> | <a href="https://auth.geeksforgeeks.org/user/vulchiakhil/practice" target="_blank">GFG</a> | <a href="https://vulchiakhil.github.io/portfolio/" target="_blank">Portfolio</a></p>
+          <h3>SUMMARY</h3>
+          <p>Full Stack Java Developer proficient in building scalable web applications using Spring Boot and ReactJS. Experienced with RESTful API design, MySQL, and version control using Git. Passionate about solving real-world problems through clean code and practical design.</p>
+        </div>
+      `,
+      "skills.json": `
+        <div class="content-block">
+          <h3>TECHNICAL SKILLS</h3>
+          <ul>
+            <li><strong>Languages:</strong> Java, JavaScript</li>
+            <li><strong>Databases:</strong> MySQL</li>
+            <li><strong>Frontend:</strong> HTML, CSS, ReactJS</li>
+            <li><strong>Backend:</strong> Spring Boot, Spring Security, Spring Data JPA, REST APIs, Microservices (Eureka, OpenFeign, API Gateway, Load Balancing)</li>
+            <li><strong>Tools:</strong> Git, GitHub, Postman, VS Code, IntelliJ IDEA</li>
+            <li><strong>Core Subjects:</strong> DSA, OOP, DBMS, Operating Systems</li>
+          </ul>
+        </div>
+      `,
+      "projects.js": `
+        <div class="content-block">
+          <h3>PROJECTS</h3>
+          <h4>Job Portal for Unorganized Sector</h4>
+          <p>ReactJS, Spring Boot, MySQL</p>
+          <p><a href="https://github.com/AkhilVulchi" target="_blank">GitHub</a></p>
+          <ul>
+            <li>Built a full-stack job portal connecting unorganized sector workers with job providers.</li>
+            <li>Developed a monolithic Spring Boot backend with CRUD modules for jobs, users, and applications.</li>
+            <li>Implemented role-based access and REST APIs for job posting, application, and status tracking.</li>
+          </ul>
+
+          <h4>RideShare – Microservices-Based Ride Sharing Backend</h4>
+          <p>Spring Boot, MySQL</p>
+          <p><a href="https://github.com/AkhilVulchi" target="_blank">GitHub</a></p>
+          <ul>
+            <li>Built a backend-only ride-sharing system using a microservices architecture.</li>
+            <li>Implemented service discovery with Eureka and centralized routing using an API Gateway.</li>
+            <li>Enabled inter-service communication using OpenFeign for seamless service-to-service calls.</li>
+          </ul>
+
+          <h4>LinkHub – Class Group Link Sharing Platform</h4>
+          <p>Spring Boot, ReactJS, PostgreSQL, OAuth2</p>
+          <p><a href="https://github.com/AkhilVulchi" target="_blank">GitHub</a></p>
+          <ul>
+            <li>Built a platform for university students to discover and join class WhatsApp groups.</li>
+            <li>Integrated secure Google OAuth2 authentication for controlled user access.</li>
+            <li>Implemented pagination to optimize data retrieval and improve user experience.</li>
+          </ul>
+        </div>
+      `,
+      "experience.txt": `
+        <div class="content-block">
+          <h3>WORK EXPERIENCE</h3>
+          <h4>Frontend Developer | June 2025 – Aug 2025</h4>
+          <p>Maigha Media Private Limited</p>
+          <ul>
+            <li>Supported the integration of Google Sign-In within frontend services.</li>
+            <li>Assisted in integrating magic link authentication features.</li>
+            <li>Contributed to establishing the connections between frontend components and backend endpoints.</li>
+            <li>Implemented basic UI elements as per company designs and wireframes.</li>
+          </ul>
+        </div>
+      `,
+      "education.md": `
+        <div class="content-block">
+          <h3>EDUCATION</h3>
+          <p><strong>B TECH in Computer Science</strong> : Vellore Institute of Technology (8/10) | 2022–2026</p>
+          <p><strong>Intermediate</strong> : Narayana Junior College (96.7%) | 2020–2022</p>
+          <p><strong>School</strong> : Sri Chaitanya Techno School (94.5%) | 2019–2020</p>
+        </div>
+      `,
+      "certifications.txt": `
+        <div class="content-block">
+          <h3>ACADEMIC ACHIEVEMENTS</h3>
+          <ul>
+            <li>3rd Prize in Project Expo at VIT-AP University for LinkHub. (Certificate)</li>
+            <li>Certified in Java by Infosys and JavaScript by Cisco.</li>
+            <li>Solved 450+ DSA problems (300+ on LeetCode, 140+ on GeeksforGeeks).</li>
+            <li>AP EAPCET 2022 – Secured rank 6,787 among 2,82,496 candidates (Top 2.4%).</li>
+          </ul>
+        </div>
+      `,
+      "contact.md": `
+        <div class="content-block">
+          <h3>CONTACT</h3>
+          <p><strong>Phone:</strong> +91 81257 25307</p>
+          <p><strong>Email:</strong> <a href="mailto:vulchiakhil@gmail.com">vulchiakhil@gmail.com</a></p>
+          <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/akhil-vulchi-a95587263/" target="_blank">linkedin.com/in/akhil-vulchi-a95587263</a></p>
+          <p><strong>GitHub:</strong> <a href="https://github.com/AkhilVulchi" target="_blank">github.com/AkhilVulchi</a></p>
+          <p><strong>Leetcode:</strong> <a href="https://leetcode.com/Vulchi_Akhil/" target="_blank">leetcode.com/Vulchi_Akhil</a></p>
+          <p><strong>GFG:</strong> <a href="https://auth.geeksforgeeks.org/user/vulchiakhil/practice" target="_blank">geeksforgeeks.org/user/vulchiakhil</a></p>
+          <p><strong>Portfolio:</strong> <a href="https://vulchiakhil.github.io/portfolio/" target="_blank">vulchiakhil.github.io/portfolio</a></p>
+        </div>
+      `
+    };
+
+    function loadContent(file) {
+      editorContent.innerHTML = contentMap[file] || '<p>File not found.</p>';
+      updateActiveTabAndFile(file);
+    }
+
+    function updateActiveTabAndFile(activeFile) {
+      fileItems.forEach(item => item.classList.remove('active'));
+      tabs.forEach(tab => tab.classList.remove('active'));
+
+      const activeFileItem = document.querySelector(`.file-item[data-file="${activeFile}"]`);
+      const activeTab = document.querySelector(`.tab[data-file="${activeFile}"]`);
+
+      if (activeFileItem) activeFileItem.classList.add('active');
+      if (activeTab) activeTab.classList.add('active');
+    }
+
+    fileItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const file = item.getAttribute('data-file');
+        loadContent(file);
+      });
+    });
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const file = tab.getAttribute('data-file');
+        loadContent(file);
+      });
+    });
+
+    // Initialize with the first file
+    document.addEventListener('DOMContentLoaded', () => {
+      const initialFile = document.querySelector('.file-item.active').getAttribute('data-file');
+      loadContent(initialFile);
+    });
+  </script>
+
+</body>
+</html>
